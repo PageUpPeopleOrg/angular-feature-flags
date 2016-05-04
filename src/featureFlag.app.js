@@ -1,1 +1,1 @@
-angular.module('feature-flags', []);
+angular.module('feature-flags', ['release-toggle']);

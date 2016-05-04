@@ -31,6 +31,3 @@ angular.module('my-app')
             replace: true
         };
     })
-    .run(function(featureFlags, $http) {
-        featureFlags.set($http.get('../data/flags.json'));
-    });

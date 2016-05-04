@@ -1,11 +1,11 @@
 /*!
- * Angular Feature Flags v1.0.0
+ * Angular Feature Flags v1.1.0
  *
  * © 2016, Michael Taranto
  */
 
 (function(){
-angular.module('feature-flags', []);
+angular.module('feature-flags', ['release-toggle']);
 
 angular.module('feature-flags').directive('featureFlag', ['featureFlags', '$interpolate', function(featureFlags, $interpolate) {
     return {
@@ -79,6 +79,7 @@ angular.module('feature-flags').directive('featureFlagOverrides', ['featureFlags
 angular.module('feature-flags').service('featureFlagOverrides', ['$rootElement', function($rootElement) {
     var appName = $rootElement.attr('ng-app'),
         keyPrefix = 'featureFlags.' + appName + '.',
+        environment,
 
         prefixedKeyFor = function(flagName) {
             return keyPrefix + flagName;
@@ -89,15 +90,23 @@ angular.module('feature-flags').service('featureFlagOverrides', ['$rootElement',
         },
 
         set = function(value, flagName) {
-            localStorage.setItem(prefixedKeyFor(flagName), value);
+            localStorage.setItem(prefixedKeyFor(flagName + '-' + environment), value);
         },
 
         get = function(flagName) {
-            return localStorage.getItem(prefixedKeyFor(flagName));
+            return localStorage.getItem(prefixedKeyFor(flagName + '-' + environment));
+        },
+
+        getEnvironment= function() {
+            return environment;
+        },
+
+        setEnvironment= function(key) {
+            environment = key;
         },
 
         remove = function(flagName) {
-            localStorage.removeItem(prefixedKeyFor(flagName));
+            localStorage.removeItem(prefixedKeyFor(flagName + '-' + environment));
         };
 
     return {
@@ -117,10 +126,12 @@ angular.module('feature-flags').service('featureFlagOverrides', ['$rootElement',
             var key;
             for (key in localStorage) {
                 if (isPrefixedKey(key)) {
-                    localStorage.removeItem(key);
+                    localStorage.removeItem(key + '-' + environment);
                 }
             }
-        }
+        },
+        getEnvironment: getEnvironment,
+        setEnvironment: setEnvironment
     };
 }]);
 
@@ -215,5 +226,37 @@ angular.module('feature-flags').provider('featureFlags', function() {
         return new FeatureFlags($q, featureFlagOverrides, initialFlags);
     }];
 });
+
+angular.module('release-toggle', [])
+
+.run(['$http', 'featureFlags', 'featureFlagOverrides', '$location', '$rootScope', function($http, featureFlags, featureFlagOverrides, $location, $rootScope) {
+        if ($location.$$search.flags) {
+            $rootScope.showFeaturesPanel = true;
+        }
+        $http.get('../data/flags.json').then(function(res) {
+            if ($location.absUrl().indexOf('/beta') > -1) {
+                featureFlagOverrides.setEnvironment("beta");
+                featureFlags.set(res.data.beta, "beta");
+            } else {
+                featureFlagOverrides.setEnvironment("live");
+                featureFlags.set(res.data.live, "live");
+            }
+        });
+
+    }])
+    .directive('releaseToggle', function() {
+        return {
+            restrict: 'A',
+            template:
+            '<div class="feature-panel transformable" ng-class="{\'feature-panel-small\':!showFeatures, \'feature-panel-big\':showFeatures}" ng-show="showFeaturesPanel">' +
+            '    <i class="fa fa-lg fa-close" ng-click="showFeaturesPanel=false"></i>' +
+            '    <div class="heading" ng-click="showFeatures=!showFeatures">Release toggle</div>' +
+            '    <i class="fa fa-angle-down fa-2x" ng-class="{\'fa-angle-down\':!showFeatures,\'fa-angle-up\':showFeatures}" ng-click="showFeatures=!showFeatures"></i>' +
+            '    <div class="feature-modal" ng-show="showFeatures">' +
+            '        <div feature-flag-overrides></div>' +
+            '    </div>' +
+            '</div>'
+        }
+    })
 
 }());

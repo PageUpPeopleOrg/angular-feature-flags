@@ -2,14 +2,14 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/release-toggle.css">
-    <script src="vendor/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/release-toggle.css">
+    <script src="../vendor/angular.min.js"></script>
     <script>
         angular.module('my-app', [ 'feature-flags' ]);
     </script>
-    <script src="scripts/directives.js"></script>
-    <script src="scripts/featureFlags.min.js"></script>
+    <script src="../scripts/directives.js"></script>
+    <script src="../scripts/featureFlags.min.js"></script>
 </head>
 <body ng-app="my-app" ng-class="{ toggle: showFlags }" ng-cloak>
     <div release-toggle></div>
