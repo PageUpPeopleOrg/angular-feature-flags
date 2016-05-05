@@ -1,4 +1,4 @@
-angular.module('release-toggle', [])
+angular.module('feature-flag-ui', [])
 
 .run(function($http, featureFlags, featureFlagOverrides, $location, $rootScope) {
         if ($location.$$search.flags) {
@@ -15,7 +15,7 @@ angular.module('release-toggle', [])
         });
 
     })
-    .directive('releaseToggle', function() {
+    .directive('featureFlagUi', function() {
         return {
             restrict: 'A',
             template:
