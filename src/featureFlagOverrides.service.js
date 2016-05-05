@@ -1,6 +1,7 @@
 angular.module('feature-flags').service('featureFlagOverrides', function($rootElement) {
     var appName = $rootElement.attr('ng-app'),
         keyPrefix = 'featureFlags.' + appName + '.',
+        environment,
 
         prefixedKeyFor = function(flagName) {
             return keyPrefix + flagName;
@@ -11,15 +12,23 @@ angular.module('feature-flags').service('featureFlagOverrides', function($rootEl
         },
 
         set = function(value, flagName) {
-            localStorage.setItem(prefixedKeyFor(flagName), value);
+            localStorage.setItem(prefixedKeyFor(flagName + '-' + environment), value);
         },
 
         get = function(flagName) {
-            return localStorage.getItem(prefixedKeyFor(flagName));
+            return localStorage.getItem(prefixedKeyFor(flagName + '-' + environment));
+        },
+
+        getEnvironment= function() {
+            return environment;
+        },
+
+        setEnvironment= function(key) {
+            environment = key;
         },
 
         remove = function(flagName) {
-            localStorage.removeItem(prefixedKeyFor(flagName));
+            localStorage.removeItem(prefixedKeyFor(flagName + '-' + environment));
         };
 
     return {
@@ -39,9 +48,11 @@ angular.module('feature-flags').service('featureFlagOverrides', function($rootEl
             var key;
             for (key in localStorage) {
                 if (isPrefixedKey(key)) {
-                    localStorage.removeItem(key);
+                    localStorage.removeItem(key + '-' + environment);
                 }
             }
-        }
+        },
+        getEnvironment: getEnvironment,
+        setEnvironment: setEnvironment
     };
 });

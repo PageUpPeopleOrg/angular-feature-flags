@@ -18,6 +18,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     coveralls = require('gulp-coveralls'),
     pkg = require('./package.json'),
+    less = require('gulp-less'),
 
 
 //--------------------------------
@@ -40,6 +41,7 @@ var gulp = require('gulp'),
             action: action
         };
     },
+    LESS_FILES = 'less/*.less',
     TEST_FILES = 'test/**/*.spec.js',
     SRC_FILES = 'src/*.js',
     KARMA_FILES = [
@@ -54,6 +56,14 @@ var gulp = require('gulp'),
 //--------------------------------
 //  TASKS
 //--------------------------------
+
+gulp.task('less', function () {
+  return gulp.src(LESS_FILES)
+    .pipe(less({
+      paths: [ path.join(__dirname, 'less', 'includes') ]
+    }))
+    .pipe(gulp.dest('demo/css/'));
+});
 
 gulp.task('lint', function() {
     return gulp.src([
@@ -100,7 +110,7 @@ gulp.task('connect', function() {
 
 
 gulp.task('server', ['connect'], function() {
-    opn("http://localhost:" + PORT);
+    opn("http://localhost:" + PORT +"/beta");
 });
 
 
@@ -146,5 +156,5 @@ gulp.task('deploy', ['build'], function(done) {
 });
 
 gulp.task('precommit', ['lint','test','build']);
-gulp.task('demo', ['build', 'server']);
+gulp.task('demo', ['build', 'less', 'server']);
 gulp.task('default', ['precommit']);
