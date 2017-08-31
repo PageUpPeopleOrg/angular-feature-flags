@@ -26,23 +26,23 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
             return getCachedFlag(key);
         },
 
-        isDefaultEnabled = function(environmentEnabled, flag) {
-            return environmentEnabled && isEnabledForInstance(flag.instances) && !isExpired(flag.expires);
-        },
-
-        isExpired = function(expiryDate) {
-            if(!expiryDate) {
-                return false;
-            }
-            var now = new Date().toISOString();
-            return now > expiryDate;
-        },
-
         isEnabledForInstance = function (instances) {
-            if(!instances) {
+            if (!instances) {
                 return true;
             }
             return instances.indexOf(instance) !== -1;
+        },
+
+        isExpired = function(expiryDate) {
+            var now = new Date().toISOString();
+            if (!expiryDate) {
+                return false;
+            }
+            return now > expiryDate;
+        },
+
+        isDefaultEnabled = function(environmentEnabled, flag) {
+            return environmentEnabled && isEnabledForInstance(flag.instances) && !isExpired(flag.expires);
         },
 
         updateFlagsAndGetAll = function(newFlags) {

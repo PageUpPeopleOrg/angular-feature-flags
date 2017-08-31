@@ -177,11 +177,8 @@
         });
 
         describe('when I check a feature flag default state', function() {
-
             var today = new Date();
             var future = new Date();
-            future.setDate(today.getHours()+1);
-
             var onFlag = { key: 'FLAG_KEY_ON', environments: { beta: true } };
             var offFlag = { key: 'FLAG_KEY_OFF', environments: { beta: false } };
             var onFlagOverridden = { key: 'FLAG_KEY_ON_OVERRIDDEN', environments: { beta: true } };
@@ -191,7 +188,7 @@
             var invalidInstanceFlag = { key: 'FLAG_KEY_ON_INSTANCE_INVALID', instances: [543], environments: { beta: true } };
             var validInstanceFlag = { key: 'FLAG_KEY_ON_INSTANCE_VALID', instances: [218,517], environments: { beta: true } };
             var onFlagThatHasExpired = { key: 'FLAG_KEY_EXPIRED', expires: '2017-08-30T00:05:54Z', environments: { beta: true } };
-            var onFlagFutureExpiry = { key: 'FLAG_KEY_FUTURE_EXPIRY', expires: future, environments: { beta: true } };
+            var onFlagFutureExpiry = { key: 'FLAG_KEY_FUTURE_EXPIRY', expires: future.setDate(today.getHours() + 1), environments: { beta: true } };
 
             beforeEach(function(done) {
                 var flagsToLoad = [onFlag, offFlag, onFlagOverridden, offFlagOverridden, invalidInstanceFlag, validInstanceFlag, onFlagThatHasExpired, onFlagFutureExpiry];
