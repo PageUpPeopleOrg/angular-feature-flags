@@ -157,9 +157,13 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
             return getCachedFlag(key);
         },
 
+        isDefaultEnabled = function(environmentEnabled, flag) {
+            return environmentEnabled && isEnabledForInstance(flag.instances) && !isExpired(flag.expires);
+        },
+
         isExpired = function(expiryDate) {
             if(!expiryDate) {
-                return false; // If expiry date is not defined, flag is always enabled
+                return false;
             }
             var now = new Date().toISOString();
             return now > expiryDate;
@@ -167,7 +171,7 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
 
         isEnabledForInstance = function (instances) {
             if(!instances) {
-                return true; // If no instances defined, flag is enabled for everyone
+                return true;
             }
             return instances.indexOf(instance) !== -1;
         },
@@ -175,11 +179,11 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
         updateFlagsAndGetAll = function(newFlags) {
             angular.copy(newFlags, flags);
             flags.forEach(function(flag) {
-                angular.forEach(flag.environments, function(isActive, env) {
+                angular.forEach(flag.environments, function(environmentEnabled, env) {
                     if (!serverFlagCache[env]) {
                         serverFlagCache[env] = {};
                     }
-                    serverFlagCache[env][flag.key] = isActive && isEnabledForInstance(flag.instances) && !isExpired(flag.expiresOn);
+                    serverFlagCache[env][flag.key] = isDefaultEnabled(environmentEnabled, flag);
                     flag.environments[env] = isOn(flag.key);
                 });
             });
