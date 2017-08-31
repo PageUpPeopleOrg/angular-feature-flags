@@ -186,7 +186,7 @@
             var undefinedFlag = { key: 'FLAG_UNDEFINED', environments: { beta: false } };
             var undefinedFlagOverridden = { key: 'FLAG_UNDEFINED_OVERRIDDEN', environments: { beta: false } };
             var invalidInstanceFlag = { key: 'FLAG_KEY_ON_INSTANCE_INVALID', instances: [543], environments: { beta: true } };
-            var validInstanceFlag = { key: 'FLAG_KEY_ON_INSTANCE_VALID', instances: [218,517], environments: { beta: true } };
+            var validInstanceFlag = { key: 'FLAG_KEY_ON_INSTANCE_VALID', instances: [218, 517], environments: { beta: true } };
             var onFlagThatHasExpired = { key: 'FLAG_KEY_EXPIRED', expires: '2017-08-30T00:05:54Z', environments: { beta: true } };
             var onFlagFutureExpiry = { key: 'FLAG_KEY_FUTURE_EXPIRY', expires: future.setDate(today.getHours() + 1), environments: { beta: true } };
 

@@ -157,7 +157,7 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
             return getCachedFlag(key);
         },
 
-        isEnabledForInstance = function (instances) {
+        isEnabledForInstance = function(instances) {
             if (!instances) {
                 return true;
             }
