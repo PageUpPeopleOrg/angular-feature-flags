@@ -2,6 +2,7 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
     var serverFlagCache = {},
         flags = [],
         envir = environment,
+        instance = 0,
 
         getCachedFlag = function(key) {
             return serverFlagCache[envir] && serverFlagCache[envir][key];
@@ -25,14 +26,30 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
             return getCachedFlag(key);
         },
 
+        isExpired = function(expiryDate) {
+            if(!expiryDate) {
+                return false; // If expiry date is not defined, flag is always enabled
+            }
+            var now = new Date().toISOString();
+            var expiry = new Date(expiryDate).toISOString();
+            return now > expiry;
+        },
+
+        isEnabledForInstance = function (instances) {
+            if(!instances) {
+                return true; // If no instances defined, flag is enabled for everyone
+            }
+            return instances.indexOf(instance) !== -1;
+        },
+
         updateFlagsAndGetAll = function(newFlags) {
             angular.copy(newFlags, flags);
             flags.forEach(function(flag) {
-                angular.forEach(flag.environments, function(active, env) {
+                angular.forEach(flag.environments, function(isActive, env) {
                     if (!serverFlagCache[env]) {
                         serverFlagCache[env] = {};
                     }
-                    serverFlagCache[env][flag.key] = active;
+                    serverFlagCache[env][flag.key] = isActive && isEnabledForInstance(flag.instances) && !isExpired(flag.expiresOn);
                     flag.environments[env] = isOn(flag.key);
                 });
             });
@@ -56,6 +73,10 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
         setEnvironment = function(value) {
             envir = value;
             featureFlagOverrides.setEnvironment(value);
+        },
+
+        setInstance = function(value) {
+            instance = value;
         },
 
         enable = function(flag) {
@@ -87,7 +108,8 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
         isOn: isOn,
         isOnByDefault: isOnByDefault,
         isOverridden: isOverridden,
-        setEnvironment: setEnvironment
+        setEnvironment: setEnvironment,
+        setInstance: setInstance
     };
 }
 
