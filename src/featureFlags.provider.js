@@ -31,8 +31,7 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
                 return false; // If expiry date is not defined, flag is always enabled
             }
             var now = new Date().toISOString();
-            var expiry = new Date(expiryDate).toISOString();
-            return now > expiry;
+            return now > expiryDate;
         },
 
         isEnabledForInstance = function (instances) {
