@@ -1,6 +1,6 @@
 {
-  "name": "angular-feature-flags",
-  "title": "Angular Feature Flags",
+  "name": "@pageup/angular-feature-flags",
+  "title": "PageUp's Angular Feature Flags",
   "version": "1.6.1",
   "description": "Feature Flag module for Angular JS apps",
   "main": "index.js",
@@ -9,11 +9,11 @@
     "feature flag",
     "feature switch"
   ],
-  "homepage": "https://github.com/michaeltaranto/angular-feature-flags",
-  "bugs": "https://github.com/michaeltaranto/angular-feature-flags/issues",
+  "homepage": "https://github.com/PageUpPeopleOrg/angular-feature-flags",
+  "bugs": "https://github.com/PageUpPeopleOrg/angular-feature-flags/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/michaeltaranto/angular-feature-flags.git"
+    "url": "https://github.com/PageUpPeopleOrg/angular-feature-flags.git"
   },
   "author": {
     "name": "Michael Taranto",
@@ -23,6 +23,22 @@
     {
       "name": "Mark Dalgleish",
       "homepage": "https://github.com/markdalgleish"
+    },
+    {
+      "name": "Paul Heasley",
+      "homepage": "https://github.com/phdesign"
+    },
+    {
+      "name": "Brian Whitehorn",
+      "homepage": "https://github.com/zBrianW"
+    },
+    {
+      "name": "Joshua Simpson",
+      "homepage": "https://github.com/josh-js"
+    },
+    {
+      "name": "Kylie Tims",
+      "homepage": "https://github.com/KylieTims"
     }
   ],
   "licenses": [
