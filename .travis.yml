@@ -20,7 +20,6 @@ deploy:
     on:
       branch: master
   - provider: npm
-    email: "paul.heasley@gmail.com"
     api_key: $NPM_TOKEN
-    on:
-      branch: master
+    #on:
+      #branch: master
