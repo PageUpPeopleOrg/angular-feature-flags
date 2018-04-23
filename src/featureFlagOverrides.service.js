@@ -20,10 +20,11 @@ angular.module('feature-flags').service('featureFlagOverrides', function($rootEl
     },
 
     setEnvironment = function(value, appName) {
-      if (!appName){
-        appName = $rootElement.attr('ng-app');
+      var _appName = appName;
+      if (!_appName) {
+        _appName = $rootElement.attr('ng-app');
       }
-      keyPrefix = 'featureFlags.' + appName + '.' + value + '.';
+      keyPrefix = 'featureFlags.' + _appName + '.' + value + '.';
     },
 
     set = function(value, flagName) {
