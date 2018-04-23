@@ -1,6 +1,5 @@
 angular.module('feature-flags').service('featureFlagOverrides', function($rootElement) {
   var keyPrefix = '',
-    appName = $rootElement.attr('ng-app'),
 
     localStorageAvailable = (function() {
       try {
@@ -20,7 +19,10 @@ angular.module('feature-flags').service('featureFlagOverrides', function($rootEl
       return key.indexOf(keyPrefix) === 0;
     },
 
-    setEnvironment = function(value) {
+    setEnvironment = function(value, appName) {
+      if (!appName){
+        appName = $rootElement.attr('ng-app');
+      }
       keyPrefix = 'featureFlags.' + appName + '.' + value + '.';
     },
 
