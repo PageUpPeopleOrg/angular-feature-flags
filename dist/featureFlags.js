@@ -160,14 +160,14 @@ angular.module('feature-flags').service('featureFlagOverrides', ['$rootElement',
   };
 }]);
 
-function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
+function FeatureFlags($q, featureFlagOverrides, initialFlags) {
   var serverFlagCache = {},
     flags = [],
-    envir = environment,
+    environment = '',
     instance = 0,
 
     getCachedFlag = function(key) {
-      return serverFlagCache[envir] && serverFlagCache[envir][key];
+      return serverFlagCache[environment] && serverFlagCache[environment][key];
     },
 
     resolve = function(val) {
@@ -236,8 +236,12 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
     },
 
     setEnvironment = function(value) {
-      envir = value;
+      environment = value;
       featureFlagOverrides.setEnvironment(value);
+    },
+
+    setAppName = function(value) {
+      featureFlagOverrides.setAppName(value);
     },
 
     setInstance = function(value) {
@@ -274,6 +278,7 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
     isOnByDefault: isOnByDefault,
     isOverridden: isOverridden,
     setEnvironment: setEnvironment,
+    setAppName: setAppName,
     setInstance: setInstance
   };
 }
@@ -281,6 +286,7 @@ function FeatureFlags($q, featureFlagOverrides, initialFlags, environment) {
 angular.module('feature-flags').provider('featureFlags', function() {
   var initialFlags = [];
   var environment = 'prod';
+  var appName = '';
 
   this.setInitialFlags = function(flags) {
     initialFlags = flags;
@@ -290,9 +296,19 @@ angular.module('feature-flags').provider('featureFlags', function() {
     environment = env;
   };
 
+  this.setAppName = function($appName) {
+    appName = $appName;
+  };
+
   this.$get = ['$q', 'featureFlagOverrides', function($q, featureFlagOverrides) {
-    featureFlagOverrides.setEnvironment(environment);
-    return new FeatureFlags($q, featureFlagOverrides, initialFlags, environment);
+    var service = new FeatureFlags($q, featureFlagOverrides, initialFlags);
+    if (environment) {
+      service.setEnvironment(environment);
+    }
+    if (appName) {
+      service.setAppName(appName);
+    }
+    return service;
   }];
 });
 
