@@ -56,7 +56,7 @@
     "coveralls": "gulp coveralls"
   },
   "devDependencies": {
-    "gulp": "^3.6.0",
+    "gulp": "^4.0.0",
     "gulp-clean": "^0.2.4",
     "gulp-concat": "^2.2.0",
     "gulp-connect": "^5.7.0",
