@@ -13,9 +13,6 @@ var gulp = require('gulp'),
   clean = require('gulp-clean'),
   ngannotate = require('gulp-ng-annotate'),
   karma = require('gulp-karma'),
-  ghpages = require('gh-pages'),
-  path = require('path'),
-  gutil = require('gulp-util'),
   coveralls = require('gulp-coveralls'),
   pkg = require('./package.json'),
 
@@ -135,12 +132,6 @@ gulp.task('dev', ['build', 'server'], function() {
   gulp.watch(SRC_FILES, ['lint', 'build']);
   gulp.src(KARMA_FILES)
     .pipe(karma(karmaConfig('watch')));
-});
-
-gulp.task('deploy', ['build'], function(done) {
-  ghpages.publish(path.join(__dirname, 'demo'), {
-    logger: gutil.log
-  }, done);
 });
 
 gulp.task('precommit', ['lint', 'test', 'build']);
