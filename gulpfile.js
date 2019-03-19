@@ -10,7 +10,6 @@ var gulp = require('gulp'),
   header = require('gulp-header'),
   wrap = require('gulp-wrap'),
   concat = require('gulp-concat'),
-  clean = require('gulp-clean'),
   ngannotate = require('gulp-ng-annotate'),
   karma = require('gulp-karma'),
   pkg = require('./package.json'),
@@ -22,19 +21,7 @@ var gulp = require('gulp'),
     return {
       frameworks: ['jasmine'],
       browsers: ['PhantomJS'],
-      reporters: ['progress', 'coverage'],
-      preprocessors: {
-        'src/*.js': ['coverage']
-      },
-      coverageReporter: {
-        reporters: [{
-          type: 'html',
-          dir: 'test/coverage/'
-        }, {
-          type: 'lcov',
-          dir: 'test/coverage/'
-        }]
-      },
+      reporters: ['progress'],
       action: action
     };
   },
@@ -65,18 +52,13 @@ gulp.task('lint', function() {
     .pipe(eslint.failOnError());
 });
 
-gulp.task('clean', function() {
-  return gulp.src('test/coverage')
-    .pipe(clean());
-});
-
-gulp.task('test', gulp.series('clean', function() {
+gulp.task('test', function() {
   return gulp.src(KARMA_FILES)
     .pipe(karma(karmaConfig('run')))
     .on('error', function(err) {
       throw err;
     });
-}));
+});
 
 gulp.task('connect', function() {
   connect.server({
