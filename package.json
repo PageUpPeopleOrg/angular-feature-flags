@@ -52,8 +52,7 @@
   },
   "scripts": {
     "test": "gulp",
-    "start": "gulp build",
-    "coveralls": "gulp coveralls"
+    "start": "gulp build"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
@@ -61,7 +60,6 @@
     "gulp-cli": "^2.0.1",
     "gulp-concat": "^2.2.0",
     "gulp-connect": "^5.7.0",
-    "gulp-coveralls": "^0.1.4",
     "gulp-eslint": "^2.0.0",
     "gulp-header": "^1.0.2",
     "gulp-karma": "0.0.4",

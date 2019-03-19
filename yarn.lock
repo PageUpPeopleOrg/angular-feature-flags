@@ -816,16 +816,6 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-coveralls@^2.11.2:
-  version "2.13.3"
-  resolved "https://registry.yarnpkg.com/coveralls/-/coveralls-2.13.3.tgz#9ad7c2ae527417f361e8b626483f48ee92dd2bc7"
-  dependencies:
-    js-yaml "3.6.1"
-    lcov-parse "0.0.10"
-    log-driver "1.2.5"
-    minimist "1.2.0"
-    request "2.79.0"
-
 crc@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/crc/-/crc-3.3.0.tgz#fa622e1bc388bf257309082d6b65200ce67090ba"
@@ -1996,14 +1986,6 @@ gulp-connect@^2.0.5:
     event-stream "^3.3.2"
     gulp-util "^3.0.6"
     tiny-lr "^0.2.1"
-
-gulp-coveralls@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/gulp-coveralls/-/gulp-coveralls-0.1.4.tgz#2f620ac8df62d0b86b4bbde64da367cc41a190c9"
-  dependencies:
-    coveralls "^2.11.2"
-    gulp-util "^3.0.4"
-    through2 "^1.1.1"
 
 gulp-eslint@^1.0.0:
   version "1.1.1"

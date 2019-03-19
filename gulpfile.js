@@ -13,7 +13,6 @@ var gulp = require('gulp'),
   clean = require('gulp-clean'),
   ngannotate = require('gulp-ng-annotate'),
   karma = require('gulp-karma'),
-  coveralls = require('gulp-coveralls'),
   pkg = require('./package.json'),
 
   //--------------------------------
@@ -77,11 +76,6 @@ gulp.task('test', gulp.series('clean', function() {
     .on('error', function(err) {
       throw err;
     });
-}));
-
-gulp.task('coveralls', gulp.series('test', function() {
-  return gulp.src(['test/coverage/**/lcov.info'])
-    .pipe(coveralls());
 }));
 
 gulp.task('connect', function() {
