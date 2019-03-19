@@ -41,7 +41,7 @@ module.exports = {
     "accessor-pairs": 0,
     "block-scoped-var": 2,
     "complexity": 0,
-    "consistent-return": 0,
+    "consistent-return": 2,
     "curly": [2, "all"],
     "default-case": 2,
     "dot-notation": 2,
