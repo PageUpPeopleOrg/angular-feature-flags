@@ -76,8 +76,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "handlebars": "^4.1.1"
   }
 }
