@@ -68,7 +68,6 @@
     "gulp-util": "^3.0.1",
     "gulp-wrap": "^0.14.0",
     "karma": "^4.0.1",
-    "karma-coverage": "^1.1.2",
     "karma-jasmine": "^0.1.5",
     "karma-phantomjs-launcher": "1.0.4",
     "opn": "^0.1.1"
