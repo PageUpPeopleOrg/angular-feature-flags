@@ -59,18 +59,18 @@
     "gulp-cli": "^2.0.1",
     "gulp-concat": "^2.2.0",
     "gulp-connect": "^5.7.0",
-    "gulp-eslint": "^2.0.0",
-    "gulp-header": "^1.0.2",
-    "gulp-karma": "0.0.4",
-    "gulp-ng-annotate": "^0.3.3",
-    "gulp-rename": "^1.2.0",
+    "gulp-eslint": "^6.0.0",
+    "gulp-header": "^2.0.9",
+    "gulp-karma": "0.0.5",
+    "gulp-ng-annotate": "^2.1.0",
+    "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.1",
-    "gulp-wrap": "^0.14.0",
-    "karma": "^4.0.1",
-    "karma-jasmine": "^0.1.5",
+    "gulp-wrap": "^0.15.0",
+    "karma": "^5.1.0",
+    "karma-jasmine": "^3.3.1",
     "karma-phantomjs-launcher": "1.0.4",
-    "opn": "^0.1.1"
+    "open": "^7.0.4"
   },
   "publishConfig": {
     "access": "public"

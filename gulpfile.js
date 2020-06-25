@@ -4,7 +4,7 @@
 var gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   connect = require('gulp-connect'),
-  opn = require('opn'),
+  open = require('open'),
   rename = require('gulp-rename'),
   uglify = require('gulp-uglify'),
   header = require('gulp-header'),
@@ -69,7 +69,7 @@ gulp.task('connect', function() {
 });
 
 gulp.task('server', gulp.series('connect', function() {
-  opn("http://localhost:" + PORT);
+  open("http://localhost:" + PORT);
 }));
 
 gulp.task('reload', function() {

@@ -70,7 +70,7 @@
     describe('when I check the state of an override', function() {
       describe('if there is one', function() {
         beforeEach(function() {
-          spyOn(localStorage, 'getItem').andReturn('true');
+          spyOn(localStorage, 'getItem').and.returnValue('true');
         });
 
         it('should return true if there is a value', function() {
@@ -80,7 +80,7 @@
 
       describe('if there is not one', function() {
         beforeEach(function() {
-          spyOn(localStorage, 'getItem').andReturn(null);
+          spyOn(localStorage, 'getItem').and.returnValue(null);
         });
 
         it('should return false if there is no value', function() {
@@ -120,16 +120,16 @@
     var service;
 
     beforeEach(function() {
-      spyOn(localStorage, 'setItem').andThrow();
-      spyOn(localStorage, 'getItem').andThrow();
-      spyOn(localStorage, 'removeItem').andThrow();
+      spyOn(localStorage, 'setItem').and.throwError();
+      spyOn(localStorage, 'getItem').and.throwError();
+      spyOn(localStorage, 'removeItem').and.throwError();
     });
 
     beforeEach(module('feature-flags'));
 
     beforeEach(inject(function(featureFlagOverrides) {
       service = featureFlagOverrides;
-      localStorage.setItem.reset();
+      localStorage.setItem.calls.reset();
     }));
 
     describe('when I set an override', function() {
